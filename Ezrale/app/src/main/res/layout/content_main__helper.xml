@@ -12,10 +12,12 @@
         android:id="@+id/button"
         android:layout_width="221dp"
         android:layout_height="61dp"
+        android:onClick="helpMe"
         android:text="HELP ME"
-        android:onClick="makeACall"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/phone_cb"
@@ -23,16 +25,21 @@
         android:layout_height="31dp"
         android:onClick="changeCatergory"
         android:text="טלפון"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="164dp" />
+
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/tv_cb"
         android:layout_width="92dp"
         android:layout_height="35dp"
         android:text="טלוויזיה"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="208dp" />
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/other_cb"
@@ -40,31 +47,39 @@
         android:layout_height="33dp"
         android:onClick="changeCatergory"
         android:text="אחר"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="261dp" />
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/ac_cb"
         android:layout_width="94dp"
         android:layout_height="32dp"
         android:text="מזגן"
-        tools:layout_editor_absoluteX="208dp"
-        tools:layout_editor_absoluteY="163dp" />
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/pc_cb"
         android:layout_width="94dp"
         android:layout_height="33dp"
         android:text="מחשב"
-        tools:layout_editor_absoluteX="209dp"
-        tools:layout_editor_absoluteY="211dp" />
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/wm_cb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="מכונת כביסה"
-        tools:layout_editor_absoluteX="209dp"
-        tools:layout_editor_absoluteY="261dp" />
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

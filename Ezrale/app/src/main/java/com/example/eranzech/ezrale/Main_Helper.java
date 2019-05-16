@@ -62,7 +62,7 @@ public class Main_Helper extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void makeACall(View view) {
+    public void helpMe(View view) {
         // Elad
     }
 
