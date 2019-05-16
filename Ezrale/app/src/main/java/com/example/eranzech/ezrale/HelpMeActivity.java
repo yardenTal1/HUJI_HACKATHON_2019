@@ -1,15 +1,27 @@
 package com.example.eranzech.ezrale;
 
 
+import android.content.ComponentName;
+import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.OperationApplicationException;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class HelpMeActivity extends AppCompatActivity {
 
@@ -63,9 +75,153 @@ public class HelpMeActivity extends AppCompatActivity {
     }
 
     public void helpMe(View view) {
-        String phoneNumber = getHelpersNumber(this.isTv, this.isPc, this.isPhone, this.isAC,
-                this.isWashingMachine, this.isOther);
+//        String phoneNumber = getHelpersNumber(this.isTv, this.isPc, this.isPhone, this.isAC,
+//                this.isWashingMachine, this.isOther);
+        String phoneNumber = "";
         makeACall(phoneNumber);
+    }
+
+    public void send_sms(View view) {
+        String phoneNUmber = "+972508535764";
+        Intent sendIntent = new Intent("android.intent.action.MAIN");
+        sendIntent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+        String waNumber = phoneNUmber.replace("+", "");
+        sendIntent.putExtra("jid", waNumber + "@s.whatsapp.net");
+        startActivity(sendIntent);
+        Uri uri = Uri.parse("callto:" + phoneNUmber);
+        Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+        i.setPackage("com.whatsapp");
+        startActivity(i);
+    }
+
+
+    public void videoCall(String name) {
+        String mimeString = "vnd.android.cursor.item/vnd.com.whatsapp.video.call";
+
+        String displayName = null;
+        Long _id;
+        ContentResolver resolver = getApplicationContext().getContentResolver();
+
+        Cursor cursor = resolver.query(ContactsContract.Data.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME);
+        assert cursor != null;
+        while (cursor.moveToNext()) {
+
+            _id = cursor.getLong(cursor.getColumnIndex(ContactsContract.Data._ID));
+            displayName = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+            String mimeType = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.MIMETYPE));
+            if (displayName.equals(name)) {
+                if (mimeType.equals(mimeString)) {
+                    String data = "content://com.android.contacts/data/" + _id;
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_VIEW);
+                    sendIntent.setDataAndType(Uri.parse(data), mimeString);
+                    sendIntent.setPackage("com.whatsapp");
+                    startActivity(sendIntent);
+                }
+            }
+        }
+    }
+
+    public void addContact(String DisplayName, String MobileNumber) {
+
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+
+        ops.add(ContentProviderOperation.newInsert(
+                ContactsContract.RawContacts.CONTENT_URI)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                .build());
+
+        //------------------------------------------------------ Names
+        if (DisplayName != null) {
+            ops.add(ContentProviderOperation.newInsert(
+                    ContactsContract.Data.CONTENT_URI)
+                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    .withValue(ContactsContract.Data.MIMETYPE,
+                            ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                    .withValue(
+                            ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
+                            DisplayName).build());
+        }
+
+        //------------------------------------------------------ Mobile Number
+        if (MobileNumber != null) {
+            ops.add(ContentProviderOperation.
+                    newInsert(ContactsContract.Data.CONTENT_URI)
+                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    .withValue(ContactsContract.Data.MIMETYPE,
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, MobileNumber)
+                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
+                            ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+                    .build());
+        }
+
+        // Asking the Contact provider to create a new contact
+        try {
+            getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void deleteContact(String number) {
+        ContentResolver contactHelper = getApplicationContext().getContentResolver();
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+        String[] args = new String[]{String.valueOf(getContactID(contactHelper,
+                number))};
+        ops.add(ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI).withSelection(ContactsContract.RawContacts.CONTACT_ID + "=?", args).build());
+        try {
+            contactHelper.applyBatch(ContactsContract.AUTHORITY, ops);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (OperationApplicationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static long getContactID(ContentResolver contactHelper, String
+            number) {
+        Uri contactUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
+                Uri.encode(number));
+        String[] projection = {ContactsContract.PhoneLookup._ID};
+        Cursor cursor = null;
+        try {
+            cursor = contactHelper.query(contactUri, projection, null, null, null);
+            if (cursor.moveToFirst()) {
+                int personID = cursor.getColumnIndex(ContactsContract.PhoneLookup._ID);
+                return cursor.getLong(personID);
+            }
+            return -1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+                cursor = null;
+            }
+        }
+        return -1;
+    }
+
+    public void requestContactPermission() {
+        // TODO implement
+        return;
+    }
+
+
+    public void MakeVideoCall(String DisplayName, String MobileNumber) {
+        addContact(DisplayName, MobileNumber);
+        requestContactPermission();
+        // TODO search for available mentor
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        videoCall(DisplayName);
+        deleteContact(MobileNumber);
     }
 
     /**
@@ -74,10 +230,10 @@ public class HelpMeActivity extends AppCompatActivity {
      */
     public void makeACall(String phoneNumber)
     {
-        //elad
+        phoneNumber = "+972508535764";
+        String DisplayName = "___Helper___";
+        MakeVideoCall(DisplayName, phoneNumber);
     }
-
-
 
     private String getHelpersNumber(boolean isTv, boolean isPc, boolean isPhone, boolean
             isAC, boolean isWashingMachine, boolean isOther) {

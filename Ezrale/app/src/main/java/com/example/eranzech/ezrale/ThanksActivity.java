@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class ThanksActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class ThanksActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ImageButton helperBtn = (ImageButton)findViewById(R.id.helperButton);
+        Button helperBtn = (Button)findViewById(R.id.exit_button);
 
         helperBtn.setOnClickListener(new View.OnClickListener() {
             @Override
