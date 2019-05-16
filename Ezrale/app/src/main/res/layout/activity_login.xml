@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +7,13 @@
     tools:context=".LoginActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
+        android:id="@+id/appBarLayout2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -20,14 +24,122 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_login" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <EditText
+        android:id="@+id/phoneNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_marginEnd="1dp"
+        android:layout_marginLeft="96dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <TextView
+        android:id="@+id/textPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="טלפון"
+        app:layout_constraintBottom_toBottomOf="@+id/phoneNum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phoneNum" />
+
+    <TextView
+        android:id="@+id/textWhatHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
+        android:layout_marginTop="36dp"
+        android:text="במה תוכל לעזור?"
+        app:layout_constraintEnd_toEndOf="@+id/phoneNum"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNum" />
+
+    <CheckBox
+        android:id="@+id/phone_cb"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginLeft="82dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="32dp"
+        android:onClick="changeCatergory"
+        android:text="טלפון"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        app:layout_constraintEnd_toStartOf="@+id/ac_cb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textWhatHelp" />
+
+    <CheckBox
+        android:id="@+id/tv_cb"
+        android:layout_width="93dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="32dp"
+        android:text="טלוויזיה"
+        android:onClick="changeCatergory"
+        app:layout_constraintStart_toStartOf="@+id/phone_cb"
+        app:layout_constraintTop_toBottomOf="@+id/phone_cb" />
+
+    <CheckBox
+        android:id="@+id/other_cb"
+        android:layout_width="94dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="32dp"
+        android:onClick="changeCatergory"
+        android:text="אחר"
+        app:layout_constraintStart_toStartOf="@+id/tv_cb"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cb" />
+
+
+    <CheckBox
+        android:id="@+id/ac_cb"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginRight="95dp"
+        android:text="מזגן"
+        android:onClick="changeCatergory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phone_cb"
+        app:layout_constraintTop_toTopOf="@+id/phone_cb" />
+
+    <CheckBox
+        android:id="@+id/pc_cb"
+        android:layout_width="93dp"
+        android:layout_height="33dp"
+        android:text="מחשב"
+        android:onClick="changeCatergory"
+        app:layout_constraintStart_toStartOf="@+id/ac_cb"
+        app:layout_constraintTop_toTopOf="@+id/tv_cb" />
+
+    <CheckBox
+        android:id="@+id/wm_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="מכונת כביסה"
+        android:onClick="changeCatergory"
+        app:layout_constraintStart_toStartOf="@+id/pc_cb"
+        app:layout_constraintTop_toTopOf="@+id/other_cb" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="145dp"
+        android:layout_height="71dp"
+        android:text="הצטרף לקהילה!"
+        android:layout_marginTop="85dp"
+        android:onClick="registerHelper"
+        app:layout_constraintTop_toBottomOf="@+id/other_cb"
+        app:layout_constraintStart_toStartOf="@+id/other_cb"
+        app:layout_constraintEnd_toEndOf="@+id/wm_cb"
+        tools:layout_editor_absoluteX="133dp"
+        tools:layout_editor_absoluteY="498dp" />
+
+
+</android.support.constraint.ConstraintLayout>

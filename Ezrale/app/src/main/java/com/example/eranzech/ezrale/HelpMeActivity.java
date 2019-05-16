@@ -1,5 +1,6 @@
 package com.example.eranzech.ezrale;
 
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,18 +11,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 
-public class Main_Helper extends AppCompatActivity {
+import java.lang.String;
+
+public class HelpMeActivity extends AppCompatActivity {
 
     // fields
-    private boolean isTv;
-    private boolean isPc;
+    private boolean isTv = false;
+    private boolean isPc = false;
     private boolean isPhone = false;
     private boolean isAC = false;
     private boolean isWashingMachine = false;
     private boolean isOther = false;
 
-    public Main_Helper()
-    {
+    public HelpMeActivity() {
         this.isTv = false;
         this.isPc = false;
         this.isPhone = false;
@@ -63,15 +65,34 @@ public class Main_Helper extends AppCompatActivity {
     }
 
     public void helpMe(View view) {
-        // Elad
+        String phoneNumber = getHelpersNumber(this.isTv, this.isPc, this.isPhone, this.isAC,
+                this.isWashingMachine, this.isOther);
+        makeACall(phoneNumber);
+    }
+
+    /**
+     *
+     * @param phoneNumber The phone number to whatsapp call to.
+     */
+    public void makeACall(String phoneNumber)
+    {
+        //elad
+    }
+
+
+
+    private String getHelpersNumber(boolean isTv, boolean isPc, boolean isPhone, boolean
+            isAC, boolean isWashingMachine, boolean isOther) {
+        //mika
+        System.out.println("Mika should do it");
+        return "hey";
     }
 
     public void changeCatergory(View view) {
-        boolean checked =  ((CheckBox) view).isChecked();
+        boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.tv_cb:
                 this.isTv = checked;
                 break;
