@@ -8,8 +8,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 
 public class Main_Helper extends AppCompatActivity {
+
+    // fields
+    private boolean isTv;
+    private boolean isPc;
+    private boolean isPhone = false;
+    private boolean isAC = false;
+    private boolean isWashingMachine = false;
+    private boolean isOther = false;
+
+    public Main_Helper()
+    {
+        this.isTv = false;
+        this.isPc = false;
+        this.isPhone = false;
+        this.isAC = false;
+        this.isWashingMachine = false;
+        this.isOther = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +37,7 @@ public class Main_Helper extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     @Override
@@ -51,9 +63,31 @@ public class Main_Helper extends AppCompatActivity {
     }
 
     public void makeACall(View view) {
+        // Elad
     }
 
     public void changeCatergory(View view) {
+        boolean checked =  ((CheckBox) view).isChecked();
 
+        // Check which checkbox was clicked
+        switch (view.getId())
+        {
+            case R.id.tv_cb:
+                this.isTv = checked;
+                break;
+            case R.id.phone_cb:
+                this.isPhone = checked;
+                break;
+            case R.id.ac_cb:
+                this.isAC = checked;
+            case R.id.pc_cb:
+                this.isPc = checked;
+                break;
+            case R.id.wm_cb:
+                this.isWashingMachine = checked;
+                break;
+            case R.id.other_cb:
+                this.isOther = checked;
+        }
     }
 }
