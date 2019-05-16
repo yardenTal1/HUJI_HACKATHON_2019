@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -81,9 +86,15 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void updateDb(String phoneNumber, boolean isTv, boolean isPc, boolean isPhone, boolean
-            isAC, boolean isWashingMachine, boolean isOther)
-    {
-        // Mika is the Queen.
+    private void updateDb(String phoneNumber, boolean isTv, boolean isPc, boolean isPhone, boolean
+            isAC, boolean isWashingMachine, boolean isOther) {
+        DatabaseReference database;
+        DatabaseReference childRef;
+        database = FirebaseDatabase.getInstance().getReference();
+        childRef = database.child("helpers");
+
+        // Write new user to database
+        App_User user = new App_User(isTv, isPc, isPhone, isAC, isWashingMachine, isOther);
+        childRef.child(phoneNumber).setValue(user);
     }
 }

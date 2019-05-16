@@ -1,5 +1,10 @@
 package com.example.eranzech.ezrale;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.content.ComponentName;
 import android.content.ContentProviderOperation;
@@ -59,6 +64,10 @@ public class HelpMeActivity extends AppCompatActivity {
         return true;
     }
 
+    interface GenericCallback {
+        void callme(String param);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -75,10 +84,14 @@ public class HelpMeActivity extends AppCompatActivity {
     }
 
     public void helpMe(View view) {
-//        String phoneNumber = getHelpersNumber(this.isTv, this.isPc, this.isPhone, this.isAC,
-//                this.isWashingMachine, this.isOther);
-        String phoneNumber = "";
-        makeACall(phoneNumber);
+        makeACall(this.isTv, this.isPc, this.isPhone, this.isAC,
+                this.isWashingMachine, this.isOther, new GenericCallback() {
+                    @Override
+                    public void callme(String phoneNumber) {
+                        final String DisplayName = "__Helper__";
+                        MakeVideoCall(DisplayName, phoneNumber);
+                    }
+                });
     }
 
     public void send_sms(View view) {
@@ -105,7 +118,6 @@ public class HelpMeActivity extends AppCompatActivity {
         Cursor cursor = resolver.query(ContactsContract.Data.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME);
         assert cursor != null;
         while (cursor.moveToNext()) {
-
             _id = cursor.getLong(cursor.getColumnIndex(ContactsContract.Data._ID));
             displayName = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
             String mimeType = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.MIMETYPE));
@@ -224,22 +236,32 @@ public class HelpMeActivity extends AppCompatActivity {
         deleteContact(MobileNumber);
     }
 
-    /**
-     *
-     * @param phoneNumber The phone number to whatsapp call to.
-     */
-    public void makeACall(String phoneNumber)
-    {
-        phoneNumber = "+972508535764";
-        String DisplayName = "___Helper___";
-        MakeVideoCall(DisplayName, phoneNumber);
-    }
 
-    private String getHelpersNumber(boolean isTv, boolean isPc, boolean isPhone, boolean
-            isAC, boolean isWashingMachine, boolean isOther) {
-        //mika
-        System.out.println("Mika should do it");
-        return "hey";
+    private void makeACall(boolean isTv, boolean isPc, boolean isPhone, boolean
+            isAC, boolean isWashingMachine, boolean isOther, final GenericCallback callback) {
+        final DatabaseReference database;
+        DatabaseReference childRef;
+        database = FirebaseDatabase.getInstance().getReference();
+        childRef = database.child("helpers");
+        final App_User toCheck = new App_User(isTv, isPc, isPhone, isAC, isWashingMachine, isOther);
+
+        FirebaseDatabase.getInstance().getReference().child("helpers")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                App_User user = snapshot.getValue(App_User.class);
+                            if (user.equals(toCheck)
+                                    ) {
+                                String phoneNumber = snapshot.getKey();
+                                callback.callme(phoneNumber);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
     }
 
     public void changeCatergory(View view) {
