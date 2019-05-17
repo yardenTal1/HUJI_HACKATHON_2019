@@ -21,70 +21,121 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-    <CheckBox
+    <ToggleButton
         android:id="@+id/phone_cb"
-        android:layout_width="0dp"
-        android:layout_height="41dp"
-        android:layout_marginLeft="172dp"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="200dp"
+        android:layout_width="96dp"
+        android:layout_height="93dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/check_phone"
+        android:checked="false"
         android:onClick="changeCatergory"
         android:text="טלפון"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/appBarLayout" />
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintEnd_toStartOf="@+id/ac_cb"
+        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintStart_toEndOf="@+id/tv_cb"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-    <CheckBox
+    <ToggleButton
         android:id="@+id/tv_cb"
-        android:layout_width="0dp"
-        android:layout_height="41dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_width="96dp"
+        android:layout_height="99dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/check_tv"
+        android:checked="false"
         android:onClick="changeCatergory"
         android:text="טלוויזיה"
+        android:textOff=""
+        android:textOn=""
         app:layout_constraintEnd_toStartOf="@+id/phone_cb"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/phone_cb" />
 
-    <CheckBox
+    <ToggleButton
         android:id="@+id/other_cb"
-        android:layout_width="0dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="115dp"
+        android:layout_height="103dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/check_other"
+        android:checked="false"
         android:onClick="changeCatergory"
         android:text="אחר"
-        app:layout_constraintStart_toStartOf="@+id/tv_cb"
-        app:layout_constraintTop_toBottomOf="@+id/tv_cb" />
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintBottom_toBottomOf="@+id/wm_cb"
+        app:layout_constraintEnd_toStartOf="@+id/wm_cb"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wm_cb" />
 
 
-    <CheckBox
+    <ToggleButton
         android:id="@+id/ac_cb"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginStart="72dp"
+        android:layout_width="96dp"
+        android:layout_height="99dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/check_ac"
+        android:checked="false"
         android:onClick="changeCatergory"
         android:text="מזגן"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="8sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/phone_cb"
         app:layout_constraintTop_toTopOf="@+id/phone_cb" />
 
-    <CheckBox
+    <ToggleButton
         android:id="@+id/pc_cb"
-        android:layout_width="0dp"
-        android:layout_height="33dp"
+        android:layout_width="110dp"
+        android:layout_height="107dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/check_computer"
+        android:checked="false"
         android:onClick="changeCatergory"
         android:text="מחשב"
-        app:layout_constraintStart_toStartOf="@+id/ac_cb"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintBottom_toBottomOf="@+id/wm_cb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/wm_cb"
         app:layout_constraintTop_toTopOf="@+id/wm_cb" />
 
-    <CheckBox
+    <ToggleButton
         android:id="@+id/wm_cb"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="111dp"
+        android:layout_height="93dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/check_washing_machine"
+        android:checked="false"
         android:onClick="changeCatergory"
         android:text="מכונת כביסה"
-        app:layout_constraintStart_toStartOf="@+id/phone_cb"
-        app:layout_constraintTop_toTopOf="@+id/other_cb" />
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintEnd_toStartOf="@+id/pc_cb"
+        app:layout_constraintStart_toEndOf="@+id/other_cb"
+        app:layout_constraintTop_toBottomOf="@+id/phone_cb" />
 
     <Button
         android:id="@+id/button2"

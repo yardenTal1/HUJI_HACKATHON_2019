@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.lang.String;
 import java.util.ArrayList;
@@ -261,7 +262,7 @@ public class HelpMeActivity extends AppCompatActivity {
     }
 
     public void changeCatergory(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
+        boolean checked = ((ToggleButton) view).isChecked();
 
         // Check which checkbox was clicked
         switch (view.getId()) {
