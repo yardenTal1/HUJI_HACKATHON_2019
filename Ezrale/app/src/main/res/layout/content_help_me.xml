@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_help_me">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button2"
         android:layout_width="221dp"
         android:layout_height="61dp"
         android:onClick="helpMe"

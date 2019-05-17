@@ -16,10 +16,8 @@ public class ThanksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thanks);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        Button helperBtn = (Button)findViewById(R.id.exit_button);
+        ImageButton helperBtn = (ImageButton)findViewById(R.id.exit_button);
 
         helperBtn.setOnClickListener(new View.OnClickListener() {
             @Override

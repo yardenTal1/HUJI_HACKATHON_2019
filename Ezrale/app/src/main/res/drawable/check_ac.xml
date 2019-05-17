@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When selected, use grey -->
+    <item android:drawable="@drawable/ac"
+        android:state_checked="true"
+        android:onClick="changeCatergory"
+        android:background="@android:color/transparent" />
+    <!-- When not selected, use white-->
+    <item android:drawable="@drawable/gray_ac"
+        android:state_checked="false"
+        android:onClick="changeCatergory"
+        android:background="@android:color/transparent"/>
+
+</selector>

@@ -51,10 +51,6 @@ public class HelpMeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_me);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
     }
 
     @Override
@@ -227,13 +223,13 @@ public class HelpMeActivity extends AppCompatActivity {
         addContact(DisplayName, MobileNumber);
         requestContactPermission();
         // TODO search for available mentor
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(5);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         videoCall(DisplayName);
-        deleteContact(MobileNumber);
+//        deleteContact(MobileNumber);
     }
 
 

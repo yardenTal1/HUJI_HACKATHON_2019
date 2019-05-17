@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         Button helperBtn = (Button)findViewById(R.id.register_button);
 
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void changeCatergory(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
+        boolean checked = ((ToggleButton) view).isChecked();
 
         // Check which checkbox was clicked
         switch (view.getId()) {
